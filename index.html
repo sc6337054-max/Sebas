@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Filo Barbería · Barbería en Majadahonda</title>
+<meta name="description" content="Filo Barbería en Majadahonda: cortes clásicos y modernos, arreglo de barba con toalla caliente y afeitado a navaja. Reserva tu cita online.">
+<meta name="theme-color" content="#0c0b0a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0c0b0a;
+  --bg-2:#141210;
+  --surface:#1b1815;
+  --surface-2:#24201c;
+  --line:rgba(242,237,228,.10);
+  --text:#f2ede4;
+  --muted:#b3aba0;
+  --accent:#d4a85a;
+  --accent-2:#f0c879;
+  --accent-ink:#17120a;
+  --radius:18px;
+  --radius-sm:12px;
+  --shadow:0 20px 50px -20px rgba(0,0,0,.7);
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --container:1180px;
+  --nav-h:72px;
+  --font-display:"Bebas Neue",Impact,"Arial Narrow",sans-serif;
+  --font-body:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:var(--nav-h);-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:1rem;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+button,input,textarea{font:inherit;color:inherit}
+h1,h2,h3{font-family:var(--font-display);font-weight:400;letter-spacing:.02em;line-height:1;margin:0}
+p{margin:0}
+:focus-visible{outline:3px solid var(--accent-2);outline-offset:3px;border-radius:6px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.skip-link{position:absolute;left:16px;top:-60px;z-index:200;background:var(--accent);color:var(--accent-ink);padding:10px 16px;border-radius:10px;font-weight:700;text-decoration:none;transition:top .2s}
+.skip-link:focus{top:16px}
+.container{width:100%;max-width:var(--container);margin-inline:auto;padding-inline:20px}
+section{padding-block:96px}
+.section-head{max-width:640px;margin-bottom:48px}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:.78rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+.eyebrow::before{content:"";width:28px;height:1px;background:currentColor}
+.section-title{font-size:clamp(2.6rem,7vw,4.2rem)}
+.section-sub{color:var(--muted);margin-top:16px;font-size:1.05rem}
+
+/* Botones */
+.btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:14px 28px;border-radius:999px;font-weight:600;font-size:1rem;text-decoration:none;border:1px solid transparent;cursor:pointer;overflow:hidden;isolation:isolate;transition:transform .3s var(--ease),box-shadow .3s var(--ease),background-color .3s,border-color .3s,color .3s}
+.btn::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.45) 50%,transparent 70%);transform:translateX(-120%);transition:transform .7s var(--ease)}
+.btn:hover::after{transform:translateX(120%)}
+.btn:hover{transform:translateY(-3px)}
+.btn-primary{background:var(--accent);color:var(--accent-ink);box-shadow:0 10px 30px -10px rgba(212,168,90,.6)}
+.btn-primary:hover{background:var(--accent-2);box-shadow:0 18px 40px -12px rgba(240,200,121,.7)}
+.btn-ghost{background:rgba(242,237,228,.04);border-color:rgba(242,237,228,.3);color:var(--text);backdrop-filter:blur(6px)}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent-2)}
+.btn svg{width:18px;height:18px;flex-shrink:0}
+
+/* Navbar */
+.nav{position:fixed;inset:0 0 auto;z-index:100;height:var(--nav-h);transition:background-color .35s,box-shadow .35s,backdrop-filter .35s;border-bottom:1px solid transparent}
+.nav.scrolled{background:rgba(12,11,10,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom-color:var(--line);box-shadow:0 10px 30px -20px rgba(0,0,0,.8)}
+.nav-inner{height:100%;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--font-display);font-size:1.8rem;letter-spacing:.06em}
+.logo span{color:var(--accent)}
+.logo svg{width:30px;height:30px;color:var(--accent)}
+.nav-links{list-style:none;margin:0;padding:0;display:flex;gap:4px;align-items:center}
+.nav-links a{display:block;padding:10px 14px;border-radius:999px;text-decoration:none;font-weight:500;font-size:.95rem;color:var(--muted);transition:color .25s,background-color .25s}
+.nav-links a:hover{color:var(--text);background:rgba(242,237,228,.06)}
+.nav-cta{min-height:44px;padding:10px 20px;font-size:.92rem}
+.burger{display:none;width:46px;height:46px;border-radius:12px;border:1px solid var(--line);background:rgba(242,237,228,.04);cursor:pointer;position:relative}
+.burger span{position:absolute;left:12px;right:12px;height:2px;background:var(--text);border-radius:2px;transition:transform .35s var(--ease),opacity .25s}
+.burger span:nth-child(1){top:15px}.burger span:nth-child(2){top:22px}.burger span:nth-child(3){top:29px}
+.burger[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.burger[aria-expanded="true"] span:nth-child(2){opacity:0}
+.burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+@media (max-width:900px){
+  .burger{display:block}
+  .nav-menu{position:fixed;inset:var(--nav-h) 0 auto 0;background:rgba(12,11,10,.97);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--line);padding:16px 20px 28px;transform:translateY(-12px);opacity:0;visibility:hidden;transition:transform .35s var(--ease),opacity .3s,visibility .3s}
+  .nav-menu.open{transform:none;opacity:1;visibility:visible}
+  .nav-links{flex-direction:column;align-items:stretch;gap:2px}
+  .nav-links a{padding:14px 12px;font-size:1.1rem;border-radius:12px}
+  .nav-menu .nav-cta{width:100%;margin-top:12px}
+}
+@media (min-width:901px){
+  .nav-menu{display:flex;align-items:center;gap:16px}
+}
+
+/* Hero */
+.hero{position:relative;min-height:100vh;min-height:100svh;display:grid;align-items:center;padding-block:calc(var(--nav-h) + 40px) 80px;overflow:hidden;isolation:isolate}
+.hero-bg{position:absolute;inset:0;z-index:-2}
+.hero-bg img{width:100%;height:100%;object-fit:cover;object-position:center 30%;transform:scale(1.08);will-change:transform}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;background:
+  radial-gradient(60% 60% at 20% 30%,rgba(212,168,90,.28),transparent 70%),
+  radial-gradient(50% 50% at 85% 75%,rgba(160,70,40,.25),transparent 70%),
+  linear-gradient(180deg,rgba(12,11,10,.65) 0%,rgba(12,11,10,.78) 55%,var(--bg) 100%);
+  background-size:180% 180%,180% 180%,100% 100%;
+  animation:gradientShift 16s ease-in-out infinite alternate}
+@keyframes gradientShift{
+  0%{background-position:0% 0%,100% 100%,0 0}
+  100%{background-position:100% 60%,0% 30%,0 0}
+}
+.hero-content{max-width:820px}
+.hero-badge{display:inline-flex;align-items:center;gap:10px;padding:8px 16px;border-radius:999px;border:1px solid rgba(212,168,90,.4);background:rgba(212,168,90,.08);font-size:.85rem;font-weight:500;margin-bottom:26px}
+.hero-badge .dot{width:8px;height:8px;border-radius:50%;background:#5bd47a;box-shadow:0 0 0 0 rgba(91,212,122,.6);animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 10px rgba(91,212,122,0)}100%{box-shadow:0 0 0 0 rgba(91,212,122,0)}}
+.hero h1{font-size:clamp(3.4rem,13vw,7.6rem);line-height:.92}
+.hero h1 .typed{color:var(--accent);display:inline-block;min-height:1em}
+.hero h1 .caret{display:inline-block;width:.06em;height:.8em;background:var(--accent);margin-left:.06em;vertical-align:baseline;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.hero-sub{margin-top:24px;font-size:clamp(1.05rem,2.4vw,1.25rem);color:#d8d1c6;max-width:580px}
+.hero-actions{margin-top:36px;display:flex;flex-wrap:wrap;gap:14px}
+.hero-stats{margin-top:64px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:620px}
+.stat{border-left:1px solid rgba(212,168,90,.5);padding-left:16px}
+.stat strong{display:block;font-family:var(--font-display);font-size:clamp(2.2rem,6vw,3.2rem);line-height:1;color:var(--text)}
+.stat span{font-size:.85rem;color:var(--muted)}
+.scroll-hint{position:absolute;left:50%;bottom:24px;transform:translateX(-50%);width:26px;height:42px;border:2px solid rgba(242,237,228,.4);border-radius:14px;display:none}
+.scroll-hint::after{content:"";position:absolute;left:50%;top:8px;width:4px;height:8px;margin-left:-2px;border-radius:2px;background:var(--accent);animation:wheel 1.8s infinite}
+@keyframes wheel{0%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(14px)}}
+@media (min-width:700px){.scroll-hint{display:block}}
+
+/* Tarjetas genéricas */
+.card{position:relative;background:linear-gradient(180deg,var(--surface),var(--bg-2));border:1px solid var(--line);border-radius:var(--radius);padding:30px;transition:transform .4s var(--ease),box-shadow .4s var(--ease),border-color .4s;overflow:hidden;isolation:isolate}
+.card::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(400px circle at var(--mx,50%) var(--my,0%),rgba(212,168,90,.16),transparent 45%);opacity:0;transition:opacity .4s}
+.card:hover{transform:translateY(-8px);box-shadow:var(--shadow),0 0 0 1px rgba(212,168,90,.25);border-color:rgba(212,168,90,.35)}
+.card:hover::before{opacity:1}
+
+/* Beneficios */
+.benefits{background:var(--bg)}
+.grid-benefits{display:grid;gap:20px;grid-template-columns:1fr}
+@media (min-width:640px){.grid-benefits{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1024px){.grid-benefits{grid-template-columns:repeat(4,1fr)}}
+.icon-box{width:56px;height:56px;border-radius:16px;display:grid;place-items:center;background:rgba(212,168,90,.12);border:1px solid rgba(212,168,90,.3);color:var(--accent);margin-bottom:22px;transition:transform .4s var(--ease),background-color .4s}
+.card:hover .icon-box{transform:rotate(-8deg) scale(1.06);background:rgba(212,168,90,.2)}
+.icon-box svg{width:26px;height:26px}
+.card h3{font-size:1.9rem;margin-bottom:8px}
+.card p{color:var(--muted)}
+
+/* Servicios */
+.services{background:var(--bg-2);position:relative}
+.services-grid{display:grid;gap:20px;grid-template-columns:1fr}
+@media (min-width:760px){.services-grid{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1080px){.services-grid{grid-template-columns:repeat(3,1fr)}}
+.service{display:flex;flex-direction:column;gap:14px}
+.service-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.price{font-family:var(--font-display);font-size:2.4rem;color:var(--accent);line-height:1;white-space:nowrap}
+.price small{font-family:var(--font-body);font-size:.85rem;color:var(--muted);margin-right:4px}
+.service ul{list-style:none;padding:0;margin:4px 0 0;display:grid;gap:8px;color:var(--muted);font-size:.95rem}
+.service li{display:flex;gap:10px;align-items:flex-start}
+.service li::before{content:"";flex-shrink:0;width:16px;height:16px;margin-top:4px;border-radius:50%;background:rgba(212,168,90,.18) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23d4a85a' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5L20 7'/%3E%3C/svg%3E") center/10px no-repeat}
+.service .meta{margin-top:auto;padding-top:16px;border-top:1px dashed var(--line);display:flex;justify-content:space-between;align-items:center;font-size:.88rem;color:var(--muted)}
+.service .meta a{color:var(--accent-2);font-weight:600;text-decoration:none}
+.service .meta a:hover{text-decoration:underline}
+.service.featured{border-color:rgba(212,168,90,.5);background:linear-gradient(180deg,#2a2218,var(--bg-2))}
+.tag{position:absolute;top:18px;right:18px;font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:var(--accent);color:var(--accent-ink);padding:6px 10px;border-radius:999px}
+.service.featured .service-top{padding-right:96px}
+
+/* Galería */
+.gallery-grid{display:grid;gap:14px;grid-template-columns:repeat(2,1fr);grid-auto-rows:170px}
+@media (min-width:760px){.gallery-grid{grid-template-columns:repeat(4,1fr);grid-auto-rows:220px}}
+.gallery-item{position:relative;margin:0;border-radius:var(--radius-sm);overflow:hidden;background:linear-gradient(135deg,var(--surface-2),var(--surface));border:1px solid var(--line)}
+.gallery-item.tall{grid-row:span 2}
+.gallery-item.wide{grid-column:span 2}
+.gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease),filter .5s;filter:grayscale(.35) contrast(1.05)}
+.gallery-item figcaption{position:absolute;inset:auto 0 0 0;padding:40px 16px 14px;background:linear-gradient(0deg,rgba(12,11,10,.9),transparent);font-weight:600;font-size:.92rem;transform:translateY(8px);opacity:0;transition:opacity .4s,transform .4s var(--ease)}
+.gallery-item:hover img,.gallery-item:focus-within img{transform:scale(1.07);filter:grayscale(0) contrast(1.05)}
+.gallery-item:hover figcaption,.gallery-item:focus-within figcaption{opacity:1;transform:none}
+@media (hover:none){.gallery-item figcaption{opacity:1;transform:none}}
+
+/* Testimonios */
+.testimonials{background:var(--bg-2)}
+.example-note{display:inline-flex;align-items:center;gap:8px;margin-top:18px;padding:8px 14px;border-radius:10px;background:rgba(242,237,228,.06);border:1px dashed rgba(242,237,228,.25);font-size:.85rem;color:var(--muted)}
+.t-grid{display:grid;gap:20px;grid-template-columns:1fr}
+@media (min-width:900px){.t-grid{grid-template-columns:repeat(3,1fr)}}
+.testimonial{display:flex;flex-direction:column;gap:18px;margin:0}
+.stars{color:var(--accent);letter-spacing:3px;font-size:1.05rem}
+.testimonial blockquote{margin:0;font-size:1.05rem;color:#e2dcd2}
+.testimonial figcaption{display:flex;align-items:center;gap:12px;margin-top:auto}
+.avatar{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-weight:700;background:linear-gradient(135deg,var(--accent),#8a5d22);color:var(--accent-ink)}
+.testimonial figcaption strong{display:block;font-size:.98rem}
+.testimonial figcaption span{font-size:.85rem;color:var(--muted)}
+.badge-example{position:absolute;top:16px;right:16px;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 9px;border-radius:999px;border:1px solid rgba(242,237,228,.25);color:var(--muted)}
+
+/* FAQ */
+.faq-wrap{display:grid;gap:40px}
+@media (min-width:960px){.faq-wrap{grid-template-columns:.8fr 1.2fr;align-items:start}}
+.faq-list{display:grid;gap:12px}
+.faq-item{border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);transition:border-color .3s,background-color .3s}
+.faq-item.open{border-color:rgba(212,168,90,.45);background:var(--surface-2)}
+.faq-item h3{font-family:var(--font-body);font-size:1.02rem;font-weight:600;letter-spacing:0;line-height:1.4}
+.faq-btn{width:100%;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 22px;background:none;border:0;text-align:left;cursor:pointer;font-weight:600;border-radius:var(--radius-sm)}
+.faq-icon{flex-shrink:0;width:30px;height:30px;border-radius:50%;border:1px solid var(--line);position:relative;transition:transform .35s var(--ease),background-color .3s,border-color .3s}
+.faq-icon::before,.faq-icon::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:2px;margin:-1px 0 0 -6px;background:var(--accent);border-radius:2px;transition:transform .35s var(--ease)}
+.faq-icon::after{transform:rotate(90deg)}
+.faq-item.open .faq-icon{background:rgba(212,168,90,.15);border-color:rgba(212,168,90,.5)}
+.faq-item.open .faq-icon::after{transform:rotate(0)}
+.faq-panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s var(--ease)}
+.faq-item.open .faq-panel{grid-template-rows:1fr}
+.faq-panel > div{overflow:hidden}
+.faq-panel p{padding:0 22px 22px;color:var(--muted)}
+
+/* CTA + contacto */
+.contact{position:relative;overflow:hidden}
+.contact::before{content:"";position:absolute;width:640px;height:640px;right:-200px;top:-200px;border-radius:50%;background:radial-gradient(circle,rgba(212,168,90,.18),transparent 65%);pointer-events:none}
+.contact-wrap{display:grid;gap:40px;position:relative}
+@media (min-width:960px){.contact-wrap{grid-template-columns:1fr 1fr;align-items:center}}
+.contact-info{display:grid;gap:16px;margin-top:32px}
+.contact-info a,.contact-info div{display:flex;align-items:center;gap:14px;text-decoration:none;color:var(--text)}
+.contact-info .icon-box{margin:0;width:48px;height:48px;border-radius:14px}
+.contact-info small{display:block;color:var(--muted);font-size:.82rem}
+.form{background:linear-gradient(180deg,var(--surface),var(--bg-2));border:1px solid var(--line);border-radius:24px;padding:28px;box-shadow:var(--shadow)}
+@media (min-width:640px){.form{padding:40px}}
+.form h3{font-size:2.2rem;margin-bottom:6px}
+.form > p{color:var(--muted);margin-bottom:24px}
+.field{display:grid;gap:8px;margin-bottom:18px}
+.field label{font-size:.9rem;font-weight:600}
+.field input,.field textarea{width:100%;padding:14px 16px;border-radius:12px;border:1px solid rgba(242,237,228,.18);background:rgba(12,11,10,.6);transition:border-color .25s,box-shadow .25s;font-size:1rem}
+.field textarea{min-height:130px;resize:vertical}
+.field input::placeholder,.field textarea::placeholder{color:#8a8278}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 4px rgba(212,168,90,.2)}
+.field.invalid input,.field.invalid textarea{border-color:#ff7a6b}
+.error{color:#ff9a8d;font-size:.84rem;min-height:1.2em}
+.form .btn{width:100%}
+.form-status{margin-top:16px;padding:14px 16px;border-radius:12px;font-size:.95rem;display:none}
+.form-status.ok{display:block;background:rgba(91,212,122,.12);border:1px solid rgba(91,212,122,.4);color:#a8f0bb}
+.privacy{margin-top:14px;font-size:.8rem;color:var(--muted);text-align:center}
+
+/* Footer */
+.footer{background:#080707;border-top:1px solid var(--line);padding-block:64px 28px}
+.footer-grid{display:grid;gap:36px;grid-template-columns:1fr}
+@media (min-width:760px){.footer-grid{grid-template-columns:1.3fr 1fr 1fr}}
+.footer h4{font-family:var(--font-display);font-weight:400;font-size:1.5rem;letter-spacing:.04em;margin:0 0 14px}
+.footer p,.footer address,.footer li{color:var(--muted);font-style:normal;font-size:.95rem}
+.footer ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.hours li{display:flex;justify-content:space-between;gap:16px;border-bottom:1px dashed var(--line);padding-bottom:6px}
+.hours li span:last-child{color:var(--text)}
+.socials{display:flex;gap:10px;margin-top:20px}
+.socials a{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;border:1px solid var(--line);color:var(--text);transition:transform .3s var(--ease),border-color .3s,color .3s,background-color .3s}
+.socials a:hover{transform:translateY(-4px);border-color:var(--accent);color:var(--accent);background:rgba(212,168,90,.08)}
+.socials svg{width:20px;height:20px}
+.footer-bottom{margin-top:48px;padding-top:24px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-size:.85rem;color:var(--muted)}
+.footer-bottom a{color:var(--muted)}
+
+/* Reveal */
+.reveal{opacity:0;transform:translateY(36px);transition:opacity .9s var(--ease),transform .9s var(--ease);transition-delay:var(--d,0ms)}
+.reveal.in{opacity:1;transform:none}
+
+/* Cursor personalizado */
+.cursor,.cursor-dot{position:fixed;top:0;left:0;pointer-events:none;z-index:999;border-radius:50%;opacity:0;transition:opacity .3s}
+.cursor{width:38px;height:38px;margin:-19px 0 0 -19px;border:1.5px solid var(--accent);transition:opacity .3s,width .3s var(--ease),height .3s var(--ease),margin .3s var(--ease),background-color .3s}
+.cursor-dot{width:6px;height:6px;margin:-3px 0 0 -3px;background:var(--accent)}
+.cursor.hover{width:64px;height:64px;margin:-32px 0 0 -32px;background:rgba(212,168,90,.12)}
+body.has-cursor .cursor,body.has-cursor .cursor-dot{opacity:1}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .reveal{opacity:1;transform:none}
+  .hero-bg img{transform:none!important}
+}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Saltar al contenido</a>
+
+<div class="cursor" aria-hidden="true"></div>
+<div class="cursor-dot" aria-hidden="true"></div>
+
+<header class="nav" id="nav">
+  <div class="container nav-inner">
+    <a href="#inicio" class="logo" aria-label="Filo Barbería, ir al inicio">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4L8.12 15.88M14.47 14.48L20 20M8.12 8.12L12 12"/></svg>
+      Filo<span>.</span>
+    </a>
+    <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="nav-menu" id="menu" aria-label="Navegación principal">
+      <ul class="nav-links">
+        <li><a href="#beneficios">Por qué Filo</a></li>
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#galeria">Trabajos</a></li>
+        <li><a href="#opiniones">Opiniones</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+      <a href="#contacto" class="btn btn-primary nav-cta">Reservar cita</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- HERO -->
+  <section class="hero" id="inicio" aria-labelledby="hero-title">
+    <div class="hero-bg" aria-hidden="true">
+      <img id="heroImg" src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=1920&q=70" alt="" fetchpriority="high" decoding="async" width="1920" height="1280">
+    </div>
+    <div class="container">
+      <div class="hero-content">
+        <p class="hero-badge reveal"><span class="dot" aria-hidden="true"></span> Abierto hoy · Gran Vía, Majadahonda</p>
+        <h1 id="hero-title" class="reveal" style="--d:100ms">
+          Tu mejor versión<br>empieza en el
+          <span class="sr-only">corte perfecto</span>
+          <span class="typed" id="typed" aria-hidden="true"></span><span class="caret" aria-hidden="true"></span>
+        </h1>
+        <p class="hero-sub reveal" style="--d:200ms">Barbería de autor en Majadahonda. Cortes precisos, barbas esculpidas y afeitado a navaja con toalla caliente, en un espacio pensado para que desconectes.</p>
+        <div class="hero-actions reveal" style="--d:300ms">
+          <a href="#contacto" class="btn btn-primary">
+            Reservar mi cita
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a href="#servicios" class="btn btn-ghost">Ver servicios y precios</a>
+        </div>
+        <div class="hero-stats reveal" style="--d:400ms">
+          <div class="stat"><strong><span class="counter" data-target="12">0</span>+</strong><span>años de oficio</span></div>
+          <div class="stat"><strong><span class="counter" data-target="18000">0</span>+</strong><span>cortes realizados</span></div>
+          <div class="stat"><strong><span class="counter" data-target="4.9" data-decimals="1">0</span>★</strong><span>valoración media</span></div>
+        </div>
+      </div>
+    </div>
+    <a href="#beneficios" class="scroll-hint" aria-label="Bajar a la siguiente sección"></a>
+  </section>
+
+  <!-- BENEFICIOS -->
+  <section class="benefits" id="beneficios" aria-labelledby="ben-title">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Por qué Filo</p>
+        <h2 class="section-title" id="ben-title">Más que un corte, un ritual</h2>
+        <p class="section-sub">Cuidamos cada detalle para que salgas con el mejor aspecto y la sensación de haberte tomado un respiro.</p>
+      </div>
+      <div class="grid-benefits">
+        <article class="card reveal" style="--d:0ms">
+          <div class="icon-box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4L8.12 15.88M14.47 14.48L20 20M8.12 8.12L12 12"/></svg></div>
+          <h3>Barberos expertos</h3>
+          <p>Profesionales con formación continua en técnicas clásicas y tendencias actuales.</p>
+        </article>
+        <article class="card reveal" style="--d:100ms">
+          <div class="icon-box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M9 16l2 2 4-4"/></svg></div>
+          <h3>Sin esperas</h3>
+          <p>Reserva online en segundos y te atendemos a tu hora, sin colas.</p>
+        </article>
+        <article class="card reveal" style="--d:200ms">
+          <div class="icon-box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.6 5.3 5.9.9-4.25 4.1 1 5.8L12 16.3 6.75 19.1l1-5.8L3.5 9.2l5.9-.9z"/></svg></div>
+          <h3>Producto premium</h3>
+          <p>Trabajamos con cosmética profesional para cabello, barba y piel.</p>
+        </article>
+        <article class="card reveal" style="--d:300ms">
+          <div class="icon-box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 010 8h-1"/><path d="M3 8h14v9a4 4 0 01-4 4H7a4 4 0 01-4-4z"/><path d="M6 2v2M10 2v2M14 2v2"/></svg></div>
+          <h3>Ambiente único</h3>
+          <p>Café de especialidad, buena música y un espacio para desconectar.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section class="services" id="servicios" aria-labelledby="serv-title">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Servicios y precios</p>
+        <h2 class="section-title" id="serv-title">Elige tu estilo</h2>
+        <p class="section-sub">Precios claros, sin sorpresas. Todos los servicios incluyen asesoramiento personalizado.</p>
+      </div>
+      <div class="services-grid">
+        <article class="card service reveal">
+          <div class="service-top"><h3>Corte clásico</h3><p class="price"><small>desde</small>16€</p></div>
+          <ul><li>Lavado y diagnóstico capilar</li><li>Corte a tijera o máquina</li><li>Peinado y acabado con producto</li></ul>
+          <div class="meta"><span>⏱ 30 min</span><a href="#contacto" data-service="Corte clásico">Reservar →</a></div>
+        </article>
+        <article class="card service featured reveal" style="--d:100ms">
+          <span class="tag">Más pedido</span>
+          <div class="service-top"><h3>Corte + Barba</h3><p class="price">26€</p></div>
+          <ul><li>Corte completo a medida</li><li>Perfilado y arreglo de barba</li><li>Toalla caliente y aceite hidratante</li></ul>
+          <div class="meta"><span>⏱ 50 min</span><a href="#contacto" data-service="Corte + Barba">Reservar →</a></div>
+        </article>
+        <article class="card service reveal" style="--d:200ms">
+          <div class="service-top"><h3>Afeitado a navaja</h3><p class="price">18€</p></div>
+          <ul><li>Preparación con toalla caliente</li><li>Afeitado tradicional con navaja</li><li>Bálsamo calmante post-afeitado</li></ul>
+          <div class="meta"><span>⏱ 35 min</span><a href="#contacto" data-service="Afeitado a navaja">Reservar →</a></div>
+        </article>
+        <article class="card service reveal">
+          <div class="service-top"><h3>Fade / Degradado</h3><p class="price">19€</p></div>
+          <ul><li>Skin fade, low, mid o high</li><li>Transiciones limpias y precisas</li><li>Diseño de líneas opcional</li></ul>
+          <div class="meta"><span>⏱ 40 min</span><a href="#contacto" data-service="Fade / Degradado">Reservar →</a></div>
+        </article>
+        <article class="card service reveal" style="--d:100ms">
+          <div class="service-top"><h3>Corte infantil</h3><p class="price">13€</p></div>
+          <ul><li>Para menores de 12 años</li><li>Trato cercano y paciente</li><li>Acabado con producto suave</li></ul>
+          <div class="meta"><span>⏱ 25 min</span><a href="#contacto" data-service="Corte infantil">Reservar →</a></div>
+        </article>
+        <article class="card service reveal" style="--d:200ms">
+          <div class="service-top"><h3>Ritual Filo</h3><p class="price">42€</p></div>
+          <ul><li>Corte, barba y afeitado completo</li><li>Limpieza facial y mascarilla</li><li>Masaje craneal relajante</li></ul>
+          <div class="meta"><span>⏱ 80 min</span><a href="#contacto" data-service="Ritual Filo">Reservar →</a></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERÍA -->
+  <section class="gallery" id="galeria" aria-labelledby="gal-title">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Nuestro trabajo</p>
+        <h2 class="section-title" id="gal-title">Cortes que hablan por sí solos</h2>
+        <p class="section-sub">Una muestra de lo que hacemos cada día en el sillón.</p>
+      </div>
+      <div class="gallery-grid">
+        <figure class="gallery-item tall reveal" tabindex="0">
+          <img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&w=700&q=70" alt="Barbero realizando un degradado con máquina a un cliente" loading="lazy" decoding="async" width="700" height="1000">
+          <figcaption>Skin fade de precisión</figcaption>
+        </figure>
+        <figure class="gallery-item wide reveal" style="--d:80ms" tabindex="0">
+          <img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?auto=format&fit=crop&w=1000&q=70" alt="Interior de la barbería con sillones clásicos y espejos" loading="lazy" decoding="async" width="1000" height="600">
+          <figcaption>Nuestro espacio</figcaption>
+        </figure>
+        <figure class="gallery-item reveal" style="--d:160ms" tabindex="0">
+          <img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?auto=format&fit=crop&w=600&q=70" alt="Arreglo de barba con navaja y perfilado" loading="lazy" decoding="async" width="600" height="600">
+          <figcaption>Barba esculpida</figcaption>
+        </figure>
+        <figure class="gallery-item tall reveal" style="--d:240ms" tabindex="0">
+          <img src="https://images.unsplash.com/photo-1622286342621-4bd786c2447c?auto=format&fit=crop&w=700&q=70" alt="Cliente con corte texturizado recién terminado" loading="lazy" decoding="async" width="700" height="1000">
+          <figcaption>Texturizado moderno</figcaption>
+        </figure>
+        <figure class="gallery-item reveal" tabindex="0">
+          <img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?auto=format&fit=crop&w=600&q=70" alt="Herramientas de barbería: tijeras, peine y navaja sobre una mesa" loading="lazy" decoding="async" width="600" height="600">
+          <figcaption>Herramientas de oficio</figcaption>
+        </figure>
+        <figure class="gallery-item wide reveal" style="--d:80ms" tabindex="0">
+          <img src="https://images.unsplash.com/photo-1593702275687-f8b402bf1fb5?auto=format&fit=crop&w=1000&q=70" alt="Barbero trabajando con tijera y peine sobre el cabello de un cliente" loading="lazy" decoding="async" width="1000" height="600">
+          <figcaption>Corte clásico a tijera</figcaption>
+        </figure>
+        <figure class="gallery-item reveal" style="--d:160ms" tabindex="0">
+          <img src="https://images.unsplash.com/photo-1517832606299-7ae9b720a186?auto=format&fit=crop&w=600&q=70" alt="Afeitado tradicional con toalla caliente" loading="lazy" decoding="async" width="600" height="600">
+          <figcaption>Afeitado a navaja</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIOS -->
+  <section class="testimonials" id="opiniones" aria-labelledby="test-title">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Opiniones</p>
+        <h2 class="section-title" id="test-title">Lo que dicen nuestros clientes</h2>
+        <p class="example-note">ⓘ Testimonios de ejemplo. Sustitúyelos por reseñas reales de tus clientes.</p>
+      </div>
+      <div class="t-grid">
+        <figure class="card testimonial reveal">
+          <span class="badge-example">Ejemplo</span>
+          <div class="stars" aria-label="5 de 5 estrellas">★★★★★</div>
+          <blockquote>«El mejor degradado que me han hecho nunca. Puntuales, atentos y el sitio tiene un ambiente buenísimo. Ya no voy a otra barbería.»</blockquote>
+          <figcaption><span class="avatar" aria-hidden="true">JM</span><div><strong>Javier M.</strong><span>Cliente de ejemplo</span></div></figcaption>
+        </figure>
+        <figure class="card testimonial reveal" style="--d:100ms">
+          <span class="badge-example">Ejemplo</span>
+          <div class="stars" aria-label="5 de 5 estrellas">★★★★★</div>
+          <blockquote>«Probé el Ritual Filo y salí como nuevo. La toalla caliente y el masaje son otro nivel. Un regalo perfecto.»</blockquote>
+          <figcaption><span class="avatar" aria-hidden="true">AR</span><div><strong>Álvaro R.</strong><span>Cliente de ejemplo</span></div></figcaption>
+        </figure>
+        <figure class="card testimonial reveal" style="--d:200ms">
+          <span class="badge-example">Ejemplo</span>
+          <div class="stars" aria-label="5 de 5 estrellas">★★★★★</div>
+          <blockquote>«Llevo a mi hijo desde hace un año y siempre lo tratan genial. Reservar online es facilísimo y nunca esperamos.»</blockquote>
+          <figcaption><span class="avatar" aria-hidden="true">LG</span><div><strong>Laura G.</strong><span>Clienta de ejemplo</span></div></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq" id="faq" aria-labelledby="faq-title">
+    <div class="container faq-wrap">
+      <div class="section-head reveal" style="margin-bottom:0">
+        <p class="eyebrow">Preguntas frecuentes</p>
+        <h2 class="section-title" id="faq-title">¿Tienes dudas?</h2>
+        <p class="section-sub">Aquí respondemos a lo que más nos preguntáis. Si no encuentras tu respuesta, escríbenos.</p>
+      </div>
+      <div class="faq-list reveal" style="--d:100ms">
+        <div class="faq-item">
+          <h3><button class="faq-btn" aria-expanded="false" aria-controls="faq-1" id="faq-b1">¿Necesito cita previa?<span class="faq-icon" aria-hidden="true"></span></button></h3>
+          <div class="faq-panel" id="faq-1" role="region" aria-labelledby="faq-b1"><div><p>Recomendamos reservar para garantizar tu hora, pero si tenemos hueco libre también atendemos sin cita. Puedes reservar desde el formulario o por teléfono.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <h3><button class="faq-btn" aria-expanded="false" aria-controls="faq-2" id="faq-b2">¿Qué formas de pago aceptáis?<span class="faq-icon" aria-hidden="true"></span></button></h3>
+          <div class="faq-panel" id="faq-2" role="region" aria-labelledby="faq-b2"><div><p>Aceptamos efectivo, tarjeta, pago con móvil y Bizum.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <h3><button class="faq-btn" aria-expanded="false" aria-controls="faq-3" id="faq-b3">¿Puedo cancelar o cambiar mi cita?<span class="faq-icon" aria-hidden="true"></span></button></h3>
+          <div class="faq-panel" id="faq-3" role="region" aria-labelledby="faq-b3"><div><p>Sí, sin coste. Solo te pedimos que nos avises con al menos 2 horas de antelación para poder ofrecer el hueco a otro cliente.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <h3><button class="faq-btn" aria-expanded="false" aria-controls="faq-4" id="faq-b4">¿Hay aparcamiento cerca?<span class="faq-icon" aria-hidden="true"></span></button></h3>
+          <div class="faq-panel" id="faq-4" role="region" aria-labelledby="faq-b4"><div><p>Estamos en pleno centro de Majadahonda, con parkings públicos a menos de 5 minutos a pie y buena conexión en transporte público.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <h3><button class="faq-btn" aria-expanded="false" aria-controls="faq-5" id="faq-b5">¿Vendéis tarjetas regalo?<span class="faq-icon" aria-hidden="true"></span></button></h3>
+          <div class="faq-panel" id="faq-5" role="region" aria-labelledby="faq-b5"><div><p>Sí. Puedes regalar cualquier servicio o un importe libre. Pídela en el local o escríbenos y te la preparamos.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA + CONTACTO -->
+  <section class="contact" id="contacto" aria-labelledby="contact-title">
+    <div class="container contact-wrap">
+      <div class="reveal">
+        <p class="eyebrow">Reserva tu cita</p>
+        <h2 class="section-title" id="contact-title">¿Listo para tu próximo corte?</h2>
+        <p class="section-sub">Déjanos tus datos y te confirmamos la cita en menos de 24 horas. Si lo prefieres, llámanos o escríbenos por WhatsApp.</p>
+        <div class="contact-info">
+          <a href="tel:+34910000000">
+            <span class="icon-box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1.9.4 1.8.7 2.7a2 2 0 01-.5 2.1L8 9.8a16 16 0 006 6l1.3-1.3a2 2 0 012.1-.4c.9.3 1.8.6 2.7.7a2 2 0 011.7 2z"/></svg></span>
+            <span><small>Teléfono</small>910 000 000</span>
+          </a>
+          <a href="mailto:hola@filobarberia.es">
+            <span class="icon-box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg></span>
+            <span><small>Email</small>hola@filobarberia.es</span>
+          </a>
+          <div>
+            <span class="icon-box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+            <span><small>Dirección</small>Gran Vía, 12 · 28220 Majadahonda, Madrid</span>
+          </div>
+        </div>
+      </div>
+
+      <form class="form reveal" id="contactForm" novalidate style="--d:150ms">
+        <h3>Pide tu cita</h3>
+        <p>Respondemos rápido, prometido.</p>
+        <div class="field">
+          <label for="name">Nombre</label>
+          <input id="name" name="name" type="text" autocomplete="name" placeholder="Tu nombre" required aria-describedby="name-err">
+          <span class="error" id="name-err" aria-live="polite"></span>
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" autocomplete="email" placeholder="tu@email.com" required aria-describedby="email-err">
+          <span class="error" id="email-err" aria-live="polite"></span>
+        </div>
+        <div class="field">
+          <label for="message">Mensaje</label>
+          <textarea id="message" name="message" placeholder="¿Qué servicio quieres y qué día te viene mejor?" required aria-describedby="msg-err"></textarea>
+          <span class="error" id="msg-err" aria-live="polite"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">
+          Enviar solicitud
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4z"/></svg>
+        </button>
+        <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
+        <p class="privacy">Usaremos tus datos solo para gestionar tu cita.</p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="#inicio" class="logo" aria-label="Filo Barbería, volver al inicio">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4L8.12 15.88M14.47 14.48L20 20M8.12 8.12L12 12"/></svg>
+          Filo<span>.</span>
+        </a>
+        <p style="margin-top:14px;max-width:340px">Barbería de autor en el corazón de Majadahonda. Oficio, detalle y buen ambiente desde hace más de una década.</p>
+        <div class="socials">
+          <a href="https://instagram.com/" aria-label="Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/></svg></a>
+          <a href="https://tiktok.com/" aria-label="TikTok" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12a4 4 0 104 4V2c.5 2.5 2.5 4.5 5 5"/></svg></a>
+          <a href="https://facebook.com/" aria-label="Facebook" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+          <a href="https://wa.me/34600000000" aria-label="WhatsApp" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 01-12.6 7.3L3 21l2.3-5.2A8.5 8.5 0 1121 11.5z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h4>Dónde estamos</h4>
+        <address>
+          Gran Vía, 12<br>
+          28220 Majadahonda, Madrid<br><br>
+          <a href="tel:+34910000000">910 000 000</a><br>
+          <a href="mailto:hola@filobarberia.es">hola@filobarberia.es</a>
+        </address>
+      </div>
+      <div>
+        <h4>Horario</h4>
+        <ul class="hours">
+          <li><span>Lunes</span><span>Cerrado</span></li>
+          <li><span>Martes – Viernes</span><span>10:00 – 20:30</span></li>
+          <li><span>Sábado</span><span>9:30 – 15:00</span></li>
+          <li><span>Domingo</span><span>Cerrado</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© <span id="year">2026</span> Filo Barbería · Majadahonda</p>
+      <p><a href="#">Aviso legal</a> · <a href="#">Privacidad</a> · <a href="#">Cookies</a></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* Año */
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  /* Navbar: fondo al hacer scroll + parallax hero */
+  var nav = document.getElementById("nav");
+  var heroImg = document.getElementById("heroImg");
+  var ticking = false;
+  function onScroll(){
+    var y = window.scrollY;
+    nav.classList.toggle("scrolled", y > 40);
+    if (!reduceMotion && heroImg && y < window.innerHeight * 1.2){
+      heroImg.style.transform = "translate3d(0," + (y * 0.3) + "px,0) scale(1.08)";
+    }
+    ticking = false;
+  }
+  window.addEventListener("scroll", function(){
+    if (!ticking){ requestAnimationFrame(onScroll); ticking = true; }
+  }, {passive:true});
+  onScroll();
+
+  /* Menú hamburguesa */
+  var burger = document.getElementById("burger");
+  var menu = document.getElementById("menu");
+  function closeMenu(){
+    menu.classList.remove("open");
+    burger.setAttribute("aria-expanded","false");
+    burger.setAttribute("aria-label","Abrir menú");
+  }
+  burger.addEventListener("click", function(){
+    var open = menu.classList.toggle("open");
+    burger.setAttribute("aria-expanded", String(open));
+    burger.setAttribute("aria-label", open ? "Cerrar menú" : "Abrir menú");
+    if (open){ var first = menu.querySelector("a"); if (first) first.focus(); }
+  });
+  menu.querySelectorAll("a").forEach(function(a){ a.addEventListener("click", closeMenu); });
+  document.addEventListener("keydown", function(e){
+    if (e.key === "Escape" && menu.classList.contains("open")){ closeMenu(); burger.focus(); }
+  });
+  window.addEventListener("resize", function(){ if (window.innerWidth > 900) closeMenu(); });
+
+  /* Animaciones de entrada */
+  var reveals = document.querySelectorAll(".reveal");
+  if ("IntersectionObserver" in window && !reduceMotion){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting){ entry.target.classList.add("in"); io.unobserve(entry.target); }
+      });
+    }, {threshold:0.15, rootMargin:"0px 0px -40px 0px"});
+    reveals.forEach(function(el){ io.observe(el); });
+  } else {
+    reveals.forEach(function(el){ el.classList.add("in"); });
+  }
+
+  /* Contadores animados */
+  var counters = document.querySelectorAll(".counter");
+  function formatNum(n, dec){
+    return dec ? n.toFixed(dec).replace(".", ",") : Math.round(n).toLocaleString("es-ES");
+  }
+  function animateCounter(el){
+    var target = parseFloat(el.dataset.target);
+    var dec = parseInt(el.dataset.decimals || "0", 10);
+    if (reduceMotion){ el.textContent = formatNum(target, dec); return; }
+    var duration = 2000, start = null;
+    function step(ts){
+      if (!start) start = ts;
+      var p = Math.min((ts - start) / duration, 1);
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = formatNum(target * eased, dec);
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  if ("IntersectionObserver" in window){
+    var co = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting){ animateCounter(entry.target); co.unobserve(entry.target); }
+      });
+    }, {threshold:0.6});
+    counters.forEach(function(c){ co.observe(c); });
+  } else {
+    counters.forEach(animateCounter);
+  }
+
+  /* Texto que se escribe solo */
+  var typedEl = document.getElementById("typed");
+  var words = ["corte perfecto.", "detalle.", "fade exacto.", "sillón."];
+  if (reduceMotion){
+    typedEl.textContent = words[0];
+  } else {
+    var wi = 0, ci = 0, deleting = false;
+    (function type(){
+      var word = words[wi];
+      typedEl.textContent = word.slice(0, ci);
+      var delay = deleting ? 45 : 95;
+      if (!deleting && ci === word.length){ deleting = true; delay = 1800; }
+      else if (deleting && ci === 0){ deleting = false; wi = (wi + 1) % words.length; delay = 350; }
+      ci += deleting ? -1 : 1;
+      setTimeout(type, delay);
+    })();
+  }
+
+  /* Brillo que sigue al ratón en tarjetas */
+  document.querySelectorAll(".card").forEach(function(card){
+    card.addEventListener("pointermove", function(e){
+      var r = card.getBoundingClientRect();
+      card.style.setProperty("--mx", (e.clientX - r.left) + "px");
+      card.style.setProperty("--my", (e.clientY - r.top) + "px");
+    });
+  });
+
+  /* Cursor personalizado (solo con ratón) */
+  if (window.matchMedia("(hover: hover) and (pointer: fine)").matches && !reduceMotion){
+    var ring = document.querySelector(".cursor");
+    var dot = document.querySelector(".cursor-dot");
+    var mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener("pointermove", function(e){
+      mx = e.clientX; my = e.clientY;
+      dot.style.transform = "translate3d(" + mx + "px," + my + "px,0)";
+      document.body.classList.add("has-cursor");
+    });
+    document.addEventListener("pointerleave", function(){ document.body.classList.remove("has-cursor"); });
+    (function follow(){
+      rx += (mx - rx) * 0.18; ry += (my - ry) * 0.18;
+      ring.style.transform = "translate3d(" + rx + "px," + ry + "px,0)";
+      requestAnimationFrame(follow);
+    })();
+    document.querySelectorAll("a, button, .gallery-item, input, textarea").forEach(function(el){
+      el.addEventListener("pointerenter", function(){ ring.classList.add("hover"); });
+      el.addEventListener("pointerleave", function(){ ring.classList.remove("hover"); });
+    });
+  }
+
+  /* Imágenes que no cargan: se oculta la imagen y queda el fondo */
+  document.querySelectorAll("img").forEach(function(img){
+    img.addEventListener("error", function(){ img.style.visibility = "hidden"; });
+  });
+
+  /* Acordeón FAQ */
+  document.querySelectorAll(".faq-btn").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      var item = btn.closest(".faq-item");
+      var isOpen = item.classList.contains("open");
+      document.querySelectorAll(".faq-item.open").forEach(function(o){
+        o.classList.remove("open");
+        o.querySelector(".faq-btn").setAttribute("aria-expanded","false");
+      });
+      if (!isOpen){ item.classList.add("open"); btn.setAttribute("aria-expanded","true"); }
+    });
+  });
+
+  /* Rellenar servicio desde "Reservar →" */
+  var msg = document.getElementById("message");
+  document.querySelectorAll("[data-service]").forEach(function(a){
+    a.addEventListener("click", function(){
+      if (!msg.value.trim()) msg.value = "Hola, me gustaría reservar: " + a.dataset.service + ". Mi disponibilidad es: ";
+    });
+  });
+
+  /* Formulario */
+  var form = document.getElementById("contactForm");
+  var status = document.getElementById("formStatus");
+  function setError(input, text){
+    var field = input.closest(".field");
+    field.classList.toggle("invalid", !!text);
+    input.setAttribute("aria-invalid", text ? "true" : "false");
+    document.getElementById(input.getAttribute("aria-describedby")).textContent = text || "";
+  }
+  var rules = {
+    name: function(v){ return v.length < 2 ? "Escribe tu nombre." : ""; },
+    email: function(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v) ? "" : "Introduce un email válido."; },
+    message: function(v){ return v.length < 10 ? "Cuéntanos un poco más (mínimo 10 caracteres)." : ""; }
+  };
+  function validateField(input){
+    var err = rules[input.name](input.value.trim());
+    setError(input, err);
+    return !err;
+  }
+  function validate(){
+    var ok = true;
+    form.querySelectorAll("input, textarea").forEach(function(el){ if (!validateField(el)) ok = false; });
+    return ok;
+  }
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    status.className = "form-status";
+    if (!validate()){
+      var firstInvalid = form.querySelector("[aria-invalid='true']");
+      if (firstInvalid) firstInvalid.focus();
+      return;
+    }
+    var name = form.elements.namedItem("name").value.trim().split(" ")[0];
+    status.textContent = "¡Gracias, " + name + "! Hemos recibido tu solicitud y te confirmaremos la cita muy pronto.";
+    status.className = "form-status ok";
+    form.reset();
+  });
+  form.querySelectorAll("input, textarea").forEach(function(el){
+    el.addEventListener("blur", function(){ if (el.value) validateField(el); });
+    el.addEventListener("input", function(){ if (el.getAttribute("aria-invalid") === "true") validateField(el); });
+  });
+})();
+</script>
+</body>
+</html>
